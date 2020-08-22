@@ -8,5 +8,19 @@
   	<java.version>11</java.version>
   	<maven.compiler.source>${java.version}</maven.compiler.source>
   	<maven.compiler.target>${java.version}</maven.compiler.target>
+  	<org.springframework.version>5.2.8.RELEASE</org.springframework.version>
+  	<org.thymeleaf.version>3.0.11.RELEASE</org.thymeleaf.version>
   </properties>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-webmvc</artifactId>
+  		<version>${org.springframework.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.thymeleaf</groupId>
+  		<artifactId>thymeleaf-spring5</artifactId>
+  		<version>${org.thymeleaf.version}</version>
+  	</dependency>
+  </dependencies>
 </project>

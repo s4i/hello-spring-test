@@ -29,5 +29,6 @@ public class HomeControllerTest {
 	public void testHomeController() throws Exception {
 		final ResultActions result = mockMvc.perform(get("/"));
 		result.andExpect(status().isOk());
+		result.andExpect(view().name("home"));
 	}
 }

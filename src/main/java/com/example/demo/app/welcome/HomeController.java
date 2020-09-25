@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.app.welcome;
 
 import java.util.Date;
 
@@ -11,8 +11,8 @@ public class HomeController {
 
 	@GetMapping(value="/")
 	private String home(Model model) {
-		model.addAttribute("message", "hello springframework.");
+		model.addAttribute("message", "hello springframework."+"[こんにちは春]");
 		model.addAttribute("time", new Date());
-		return "home";
+		return "welcome/home";
 	}
 }

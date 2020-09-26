@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.app.welcome;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -29,6 +29,6 @@ public class HomeControllerTest {
 	public void testHomeController() throws Exception {
 		final ResultActions result = mockMvc.perform(get("/"));
 		result.andExpect(status().isOk());
-		result.andExpect(view().name("home"));
+		result.andExpect(view().name("welcome/home"));
 	}
 }

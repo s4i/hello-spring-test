@@ -1,7 +1,12 @@
 package com.example.demo.app.welcome;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.text.SimpleDateFormat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,11 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+//@SpringJUnitWebConfig(locations = "file:src/main/webapp/WEB-INF/spring/dispatcher-config.xml")
+@SpringJUnitWebConfig(locations = "file:src/test/spring/dispatcher-config.xml")
 @ExtendWith(MockitoExtension.class)
-@SpringJUnitWebConfig(locations = "file:src/main/webapp/WEB-INF/spring/dispatcher-config.xml")
 public class HomeControllerTestWithMockito {
 
 	private MockMvc mockMvc;
@@ -29,8 +34,16 @@ public class HomeControllerTestWithMockito {
 
 	@Test
 	public void testHomeController() throws Exception {
-		final ResultActions result = mockMvc.perform(get("/"));
-		result.andExpect(status().isOk());
-		result.andExpect(view().name("welcome/home"));
+		var result = mockMvc.perform(get("/"))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(view().name("welcome/home"))
+				.andReturn();
+
+		// コンテキスト
+		var content = result.getModelAndView().getModel();
+		System.out.println(content);
+		assertThat(content.get("message").toString(), containsString("hello springframework." + "[こんにちは春]"));
+		assertThat(content.get("time").toString(), containsString(new SimpleDateFormat("yyyy/MM/dd").toString()));
 	}
 }
